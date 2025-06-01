@@ -1,14 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solitaire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Klondike Solitaire</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="gameCanvas"></canvas>
-  <script src="game.js"></script>
+  <div id="game">
+    <div class="top-row">
+      <div class="stock">
+        <div id="stock-pile" class="card back"></div>
+        <div id="waste-pile" class="card"></div>
+      </div>
+      <div class="foundations">
+        <div class="foundation" data-suit="hearts"></div>
+        <div class="foundation" data-suit="diamonds"></div>
+        <div class="foundation" data-suit="clubs"></div>
+        <div class="foundation" data-suit="spades"></div>
+      </div>
+    </div>
+    <div id="tableau" class="tableau"></div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,10 +1,55 @@
-
 body {
   margin: 0;
-  background-color: #006400;
+  padding: 0;
+  font-family: sans-serif;
+  background: #006400;
+  color: white;
 }
-canvas {
-  display: block;
-  margin: 0 auto;
-  background-color: #228B22;
+
+#game {
+  padding: 10px;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.stock, .foundations {
+  display: flex;
+  gap: 10px;
+}
+
+.card, .foundation {
+  width: 60px;
+  height: 90px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: bold;
+}
+
+.card.back {
+  background-color: #222;
+}
+
+.foundation {
+  background-color: #006400;
+  border: 2px dashed white;
+}
+
+.tableau {
+  display: flex;
+  gap: 10px;
+}
+
+.tableau-column {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
