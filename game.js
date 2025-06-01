@@ -1,46 +1,44 @@
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
 
-const CARD_WIDTH = 80;
-const CARD_HEIGHT = 120;
+const suits = ['♠', '♥', '♦', '♣'];
+const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
-let suits = ["♠", "♥", "♦", "♣"];
-let deck = [];
-
-// Generate and shuffle deck
-function initDeck() {
-  deck = [];
+function createDeck() {
+  const deck = [];
   for (let suit of suits) {
-    for (let rank = 1; rank <= 13; rank++) {
-      deck.push({ suit, rank, faceUp: false });
+    for (let value of values) {
+      deck.push({ suit, value });
     }
   }
-  deck = deck.sort(() => Math.random() - 0.5);
+  return deck;
 }
 
-// Draw one card for testing
-function drawCard(card, x, y) {
-  ctx.fillStyle = "#fff";
-  ctx.fillRect(x, y, CARD_WIDTH, CARD_HEIGHT);
-  ctx.strokeStyle = "#000";
-  ctx.strokeRect(x, y, CARD_WIDTH, CARD_HEIGHT);
-  ctx.fillStyle = (card.suit === "♥" || card.suit === "♦") ? "red" : "black";
-  ctx.font = "16px Arial";
-  ctx.fillText(getRankSymbol(card.rank) + card.suit, x + 8, y + 24);
-}
-
-function getRankSymbol(rank) {
-  return ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"][rank - 1];
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let i = 0; i < 7; i++) {
-    let card = deck[i];
-    card.faceUp = true;
-    drawCard(card, 30 + i * (CARD_WIDTH + 10), 100);
+function shuffle(deck) {
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
   }
 }
 
-initDeck();
-draw();
+function renderDeck(deck) {
+  const container = document.getElementById("game-container");
+  container.innerHTML = '';
+  for (let i = 0; i < 7; i++) {
+    const column = document.createElement("div");
+    for (let j = 0; j <= i; j++) {
+      const card = deck.pop();
+      const cardEl = document.createElement("div");
+      cardEl.className = "card " + ((card.suit === '♥' || card.suit === '♦') ? "red" : "black");
+      cardEl.textContent = card.value + card.suit;
+      column.appendChild(cardEl);
+    }
+    container.appendChild(column);
+  }
+}
+
+function startGame() {
+  const deck = createDeck();
+  shuffle(deck);
+  renderDeck(deck);
+}
+
+startGame();
